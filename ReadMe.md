@@ -1,5 +1,7 @@
 # Materials for course on ""Other" Computational Social Science Skills" at the fourth MPIDR Summer Incubator Program, June 10, 2025, Rostock, Germany (and online)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15625335.svg)](https://doi.org/10.5281/zenodo.15625335)
+
 Here is the folder structure and what to expect:
 
 - Root folder
