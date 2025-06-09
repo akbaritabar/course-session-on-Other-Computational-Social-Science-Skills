@@ -1,0 +1,85 @@
+## File name to use in search: "Snakefile" ##
+
+# ===========
+## Author details ##
+# ===========
+
+# Script's author:      Aliakbar Akbaritabar
+# Version:              2025-06-06
+# Email:                akbaritabar@demogr.mpg.de
+# GitHub:               https://github.com/akbaritabar
+# Website:              https://www.demogr.mpg.de/en/about_us_6113/staff_directory_1899/aliakbar_akbaritabar_4098/
+
+# Script for replication of analysis of session on "Other" CSS skills as part of the course on "Introduction to Computational Social Science" at the University of Rostock, Germany.
+
+
+# ===========
+## Configuration ##
+# ===========
+# main configurations and settings
+include: r"../config/config.py"
+
+# ===========
+## Main output generation rule ##
+# ===========
+
+rule all:
+    input:
+        # These are the outputs of all steps which rule "all" will collect
+        # It makes running the whole pipeline easier
+        TOY_DATA_PARQUET,
+        SUM_PAPERS_AUTHORS_YEARLY,
+        SUM_AUTHOR_PAPERS,
+        SUM_AUTHOR_PAPERS_YEARLY
+
+
+# Other steps and rules in workflow that in general go into their own Snakefile named "file-name.smk" and if smaller projects could exist in the same Snakefile
+
+rule duckdb_prepare_parquet_of_toy_data:
+    input:
+        ancient(TOY_DATA)
+    output:
+        TOY_DATA_PARQUET
+    log:
+        TOY_DATA_PARQUET_LOG
+    params:
+        scriptPath = SRC1
+    shell:
+        "(python {params.scriptPath} --input {input}  --output {output}) 2> {log}"
+
+rule duckdb_summary_papers_authors_yearly:
+    input:
+        TOY_DATA_PARQUET
+    output:
+        SUM_PAPERS_AUTHORS_YEARLY
+    log:
+        SUM_PAPERS_AUTHORS_YEARLY_LOG
+    params:
+        scriptPath = SRC2
+    shell:
+        "(python {params.scriptPath} --input {input}  --output {output}) 2> {log}"
+
+rule duckdb_summary_author_papers:
+    input:
+        TOY_DATA_PARQUET
+    output:
+        SUM_AUTHOR_PAPERS
+    log:
+        SUM_AUTHOR_PAPERS_LOG
+    params:
+        scriptPath = SRC3
+    shell:
+        "(python {params.scriptPath} --input {input}  --output {output}) 2> {log}"
+
+rule duckdb_summary_author_papers_yearly:
+    input:
+        TOY_DATA_PARQUET
+    output:
+        SUM_AUTHOR_PAPERS_YEARLY
+    log:
+        SUM_AUTHOR_PAPERS_YEARLY_LOG
+    params:
+        scriptPath = SRC4
+    shell:
+        "(python {params.scriptPath} --input {input}  --output {output}) 2> {log}"
+

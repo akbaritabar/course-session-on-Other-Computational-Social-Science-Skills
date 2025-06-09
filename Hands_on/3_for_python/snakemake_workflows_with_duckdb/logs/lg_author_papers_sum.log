@@ -1,0 +1,5 @@
+2025-06-09 16:53:21,857 - root - INFO - These items are in the environment: ['__annotations__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', 'duckdb', 'lg', 'pd']
+2025-06-09 16:53:21,861 - root - INFO - Arguments received from command line: 
+ Namespace(input=['C:/w2/w11oth/snakemake_workflows_with_duckdb/results/toy_data.parquet'], output=['C:/w2/w11oth/snakemake_workflows_with_duckdb/results/author_papers_summary.parquet'])
+2025-06-09 16:53:21,883 - root - INFO - DuckDB ran the query and successfully finished!
+2025-06-09 16:53:21,883 - root - INFO - Parquet file created at: C:/w2/w11oth/snakemake_workflows_with_duckdb/results/author_papers_summary.parquet
