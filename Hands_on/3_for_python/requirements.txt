@@ -1,0 +1,21 @@
+# for data wrangling
+pandas
+# to read parquet files using pandas
+pyarrow
+# a very fast dataframe library similar to pandas
+polars
+# for parallelization and in-memory database
+duckdb
+# Lightweight IDE to use with Python
+jupyterlab
+# for parallelization in Python
+dask
+dask[distributed]
+bokeh>=3.1.0
+# for XML parsing example
+bs4
+lxml
+# for parallelization and duckdb integration using ibis
+ibis-framework[duckdb,examples]
+# for workflow management
+snakemake
