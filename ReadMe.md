@@ -15,6 +15,16 @@ Here is the folder structure and what to expect:
 
 **Note and disclaimer**: I will only share leads, links, and show you "example" scripts in R, Python, and SQL in this introductory short session; you would need to extend them on your own.
 
+# Topics covered
+- Parallelization of extract, transform, load (ETL) tasks in Python and R; 
+- Faster Input/output (I/O) w/ file formats such as Parquet, feather, versus row-based CSV; All columns needed? Strings?
+- Functional programming versus Object-Oriented Programming; 
+- Tabular versus relational databases versus graph databases; 
+- In-memory databases for faster and parallelized ETL tasks such as DuckDB;
+- DuckDB's interface to R, Python, etc, to manage I/O and ETL tasks
+- Using Dask to parallelize familiar data constructs, Pandas DF, Numpy array
+- Use workflow managers, e.g., SnakeMake, for reproducibility
+
 ## Preview of slides and course structure
 
 [![Course slides](./Z_images/Course_introduction_to_CSS_W11_OtherCSSSkills_1.png)](https://github.com/akbaritabar/Tutorial-session-on-Other-Computational-Social-Science-Skills/tree/master/Slides)
