@@ -78,3 +78,65 @@ df
 # # ℹ Use `print(n = ...)` to see more rows
 
 ```
+
+# Bonus content: Scaled up example on 16GB RAM laptop
+
+Now let's use the NY taxi data in R and see the speed up using my work laptop that has 16GB or RAM and 5 CPU cores.
+
+```R
+library(tidyverse)
+
+df_NY <- tbl(con, "read_csv('./NYtaxi/yellow*.csv')")
+
+df_NY
+
+# # Source:   SQL [?? x 19]
+# # Database: DuckDB v1.3.0 [Akbaritabar@Windows 10 x64:R 4.4.3/:memory:]
+#    VendorID tpep_pickup_datetime tpep_dropoff_datetime passenger_count
+#       <dbl> <dttm>               <dttm>                          <dbl>
+#  1        2 2015-01-15 19:05:39  2015-01-15 19:23:42                 1
+#  2        1 2015-01-10 20:33:38  2015-01-10 20:53:28                 1
+#  3        1 2015-01-10 20:33:38  2015-01-10 20:43:41                 1
+#  4        1 2015-01-10 20:33:39  2015-01-10 20:35:31                 1
+#  5        1 2015-01-10 20:33:39  2015-01-10 20:52:58                 1
+#  6        1 2015-01-10 20:33:39  2015-01-10 20:53:52                 1
+#  7        1 2015-01-10 20:33:39  2015-01-10 20:58:31                 1
+#  8        1 2015-01-10 20:33:39  2015-01-10 20:42:20                 3
+#  9        1 2015-01-10 20:33:39  2015-01-10 21:11:35                 3
+# 10        1 2015-01-10 20:33:40  2015-01-10 20:40:44                 2
+# # ℹ more rows
+# # ℹ 15 more variables: trip_distance <dbl>, pickup_longitude <dbl>,
+# #   pickup_latitude <dbl>, RateCodeID <dbl>, store_and_fwd_flag <chr>,
+# #   dropoff_longitude <dbl>, dropoff_latitude <dbl>, payment_type <dbl>,
+# #   fare_amount <dbl>, extra <dbl>, mta_tax <dbl>, tip_amount <dbl>,
+# #   tolls_amount <dbl>, improvement_surcharge <dbl>, total_amount <dbl>
+# # ℹ Use `print(n = ...)` to see more rows
+
+
+# Let's run the same query we did in DuckDB CLI, now in R
+
+# one csv file
+dbGetQuery(con, "select count(*) as n, count(distinct VendorID) from './NYtaxi/yellow_tripdata_2015-01.csv';")
+
+# all 8 files
+dbGetQuery(con, "select count(*) as n, count(distinct VendorID) from './NYtaxi/yellow*.csv';")
+
+# filter data and count rows
+df_NY %>% 
+  filter(tpep_pickup_datetime == '2015-01-15 19:05:39') %>% 
+  summarize(n_rows = n())
+
+
+# how to collect a subset of the data?
+sm_dt <- df_NY %>% 
+  filter(tpep_pickup_datetime == '2015-01-15 19:05:39') %>% 
+  summarize(n_rows = n()) %>% 
+  collect()
+
+class(sm_dt)
+# [1] "tbl_df"     "tbl"        "data.frame"
+
+> typeof(sm_dt)
+# [1] "list"
+
+```
